@@ -1,0 +1,32 @@
+:root {
+    /* primary */
+    --primary: #3300FF;
+
+    /* card */
+    --card: #F7F7F7;
+
+    /* success */
+    --success: #E5F5E1;
+
+    /* failed */
+    --failed: #FFE0E0;
+
+    /* black */
+    --black: #000000;
+
+    /* white */
+    --white: #ffffff;
+
+    /* border-radius */
+    --rounded-sm: 10px;
+    --rounded-md: 20px;
+    --rounded: 9999px;
+}
+
+*, body, html {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
