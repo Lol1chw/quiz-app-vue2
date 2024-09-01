@@ -4,7 +4,8 @@ import RadioButton from '@/components/RadioButton/RadioButton.vue'
 import Card from '@/components/ui/Card/Card.vue'
 import ProgressBar from '@/components/Progress/ProgressBar.vue'
 import ResultCard from '@/components/QuizResult/Card/ResultCard.vue'
-import type { Answer, Question } from '@/types/question'
+import quiz from '@/const/quiz.json'
+import type { Answer } from '@/types/question'
 
 export default defineComponent({
   components: { RadioButton, Card, ProgressBar, ResultCard },
@@ -15,29 +16,7 @@ export default defineComponent({
     return { selectedAnswers, progress }
   },
   data() {
-    const questions: Question[] = [
-      {
-        id: 1,
-        text: 'Что такое операционная система?',
-        answers: [
-          { id: 1, text: 'Это просто программа на компьютере, как и другие - Word или Chrome', isCorrect: false },
-          { id: 2, text: 'Это показатель того, какой процессор используется на компьютере. Например, 32-битный или 64-битный', isCorrect: false },
-          { id: 3, text: 'Это набор взаимосвязанных программ, осуществляющих управление компьютером и взаимодействие с пользователем', isCorrect: true },
-          { id: 4, text: 'Нет такого понятия, есть понятие "файловая система"', isCorrect: false },
-        ],
-      },
-      {
-        id: 2,
-        text: 'Что такое операционная система? question-2',
-        answers: [
-          { id: 5, text: 'Это просто программа на компьютере, как и другие - Word или Chrome', isCorrect: false },
-          { id: 6, text: 'Это показатель того, какой процессор используется на компьютере. Например, 32-битный или 64-битный', isCorrect: false },
-          { id: 7, text: 'Это набор взаимосвязанных программ, осуществляющих управление компьютером и взаимодействие с пользователем', isCorrect: true },
-          { id: 8, text: 'Нет такого понятия, есть понятие "файловая система"', isCorrect: false },
-        ],
-      },
-    ]
-
+    const questions = [...quiz.questions]
     return { questions }
   },
   methods: {
@@ -52,7 +31,7 @@ export default defineComponent({
 <template>
   <div class="base-layout">
     <div class="quiz">
-      <h1 class="title">
+      <h1>
         Тестирование
       </h1>
       <template v-for="question in questions">
@@ -67,6 +46,7 @@ export default defineComponent({
               :style="{ marginBottom: index + 1 < question.answers.length ? '20px' : '' }"
             >
               <RadioButton
+                :id="`answer-${answer.id}`"
                 :label-text="answer.text"
                 :radio-group-name="`question-${question.id}`"
                 @update:selected="updateSelectedAnswers(answer)"
