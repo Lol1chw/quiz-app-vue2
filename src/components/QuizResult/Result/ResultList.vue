@@ -12,8 +12,8 @@ export default defineComponent({
       required: true,
     },
     questions: {
-        type: Array<Question>,
-        required: true,
+      type: Array<Question>,
+      required: true,
     },
   },
 })
@@ -21,7 +21,11 @@ export default defineComponent({
 
 <template>
   <ul role="list">
-    <li v-for="(answer, index) in selectedAnswers" :key="`result-${index}-${answer.id}`">
+    <li
+      v-for="(answer, index) in selectedAnswers"
+      :key="`result-${index}-${answer.id}`"
+      :style="{ marginBottom: index !== questions.length && '20px'}"
+    >
       <ResultCard
         :is-correct="answer.isCorrect"
         :question-text="questions[index].text"

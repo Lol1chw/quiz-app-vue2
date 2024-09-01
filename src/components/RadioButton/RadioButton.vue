@@ -58,6 +58,8 @@ export default defineComponent({
     -webkit-box-shadow: 0px 0px 8px 4px rgba(51, 0, 255, 0.22);
     -moz-box-shadow: 0px 0px 8px 4px rgba(51, 0, 255, 0.22);
     box-shadow: 0px 0px 8px 4px rgba(51, 0, 255, 0.22);
+    border-color: var(--primary);
+    background-color: var(--primary);
 }
 
 .radio input:checked ~ .radio__checkmark {
