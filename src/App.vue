@@ -3,12 +3,12 @@ import { defineComponent, ref } from 'vue'
 import RadioButton from '@/components/RadioButton/RadioButton.vue'
 import Card from '@/components/ui/Card/Card.vue'
 import ProgressBar from '@/components/Progress/ProgressBar.vue'
-import ResultCard from '@/components/QuizResult/Card/ResultCard.vue'
+import ResultList from '@/components/QuizResult/Result/ResultList.vue'
 import quiz from '@/const/quiz.json'
 import type { Answer } from '@/types/question'
 
 export default defineComponent({
-  components: { RadioButton, Card, ProgressBar, ResultCard },
+  components: { RadioButton, Card, ProgressBar, ResultList },
   setup() {
     const selectedAnswers = ref<Answer[]>([])
     const progress = ref<number>(0)
@@ -57,16 +57,7 @@ export default defineComponent({
       </template>
     </div>
     <ProgressBar v-if="progress < questions.length" :progress-length="questions.length" :progress="progress" />
-    <div v-if="selectedAnswers.length === questions.length">
-      <template v-for="(answer, index) in selectedAnswers">
-        <ResultCard
-          :key="`result-${index}-${answer.id}`"
-          :is-correct="answer.isCorrect"
-          :question-text="questions[index].text"
-          :answer-text="answer.text"
-        />
-      </template>
-    </div>
+    <ResultList v-if="selectedAnswers.length === questions.length" :selected-answers="selectedAnswers" :questions="questions"/>
   </div>
 </template>
 
