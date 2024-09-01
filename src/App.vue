@@ -66,6 +66,9 @@ export default defineComponent({
     },
 
   },
+  created() {
+    this.shuffleQuestions()
+  },
   methods: {
     updateSelectedAnswers(answer: Answer) {
       this.selectedAnswers.push(answer)
@@ -74,6 +77,13 @@ export default defineComponent({
     resetQuiz() {
       this.selectedAnswers = []
       this.progress = 0
+      this.shuffleQuestions()
+    },
+    shuffleQuestions() {
+      this.questions = this.questions.sort(() => Math.random() - 0.5)
+      this.questions.forEach((question) => {
+        question.answers = question.answers.sort(() => Math.random() - 0.5)
+      })
     },
   },
 })
@@ -84,8 +94,8 @@ export default defineComponent({
     <div class="quiz">
       <h1>{{ quizResultMessage.title }}</h1>
       <p v-if="quizResultMessage.description" class="quiz__description text--2xl">{{ quizResultMessage.description }}</p>
-      <template v-for="question in questions">
-        <Card v-if="progress + 1 === question.id" :key="`question-${question.id}`" intent="primary">
+      <template v-for="(question, questionIndex) in questions">
+        <Card v-if="progress === questionIndex" :key="`question-${question.id}`" intent="primary">
           <ul role="list">
             <h2 class="mt--0 mb--20">
               {{ question.text }}
