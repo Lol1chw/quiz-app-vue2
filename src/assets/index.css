@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat-Bold.ttf');
+    font-weight: 700;
+}
+
 :root {
     /* primary */
     --primary: #3300FF;
@@ -25,6 +37,7 @@
 
 *, body, html {
     box-sizing: border-box;
+    font-family: 'Montserrat';
 }
 
 body {
