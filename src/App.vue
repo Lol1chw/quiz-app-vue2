@@ -38,7 +38,7 @@ export default defineComponent({
     return { questions, titles, resultDescriptionMessage }
   },
   computed: {
-    quizResultMessage() {
+    quizMessage() {
       if (this.selectedAnswers.length < this.questions.length) {
         return {
           title: this.titles.test,
@@ -92,8 +92,8 @@ export default defineComponent({
 <template>
   <div class="base-layout">
     <div class="quiz">
-      <h1>{{ quizResultMessage.title }}</h1>
-      <p v-if="quizResultMessage.description" class="quiz__description text--2xl">{{ quizResultMessage.description }}</p>
+      <h1 class="text--extrabold mb--20 mt--0">{{ quizMessage.title }}</h1>
+      <p v-if="quizMessage.description" class="quiz__description text--2xl">{{ quizMessage.description }}</p>
       <template v-for="(question, questionIndex) in questions">
         <Card v-if="progress === questionIndex" :key="`question-${question.id}`" intent="primary">
           <ul role="list">

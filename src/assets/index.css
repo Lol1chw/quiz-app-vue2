@@ -77,6 +77,10 @@ ol[role='list'] {
     font-weight: 700;
 }
 
+.text--extrabold {
+    font-weight: 800;
+}
+
 .text--base {
     font-size: 16px;
 }
