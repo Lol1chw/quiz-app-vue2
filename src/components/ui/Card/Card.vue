@@ -43,6 +43,7 @@ export default defineComponent({
 .card--primary {
   background-color: #F7F7F7;
   min-height: 528px;
+  margin-bottom: 40px;
 }
 
 .card--success {
