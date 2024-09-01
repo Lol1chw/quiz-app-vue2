@@ -96,7 +96,7 @@ export default defineComponent({
         {{ quizMessage.title }}
       </h1>
       <!-- eslint-disable-next-line -->
-      <p v-if="quizMessage.description" class="quiz__description text--2xl">{{quizMessage.description}}</p>
+      <p v-if="quizMessage.description" class="quiz__description text--2xl mt--0 mb--40">{{quizMessage.description}}</p>
       <template v-for="(question, questionIndex) in questions">
         <Card v-if="progress === questionIndex" :key="`question-${question.id}`" intent="primary">
           <QuestionsList :question="question" @update:selected="updateSelectedAnswers" />
@@ -119,7 +119,7 @@ export default defineComponent({
   min-height: 100%;
   margin: auto;
   max-width: 886px;
-  padding: 10px;
+  padding: 80px 10px;
 }
 
 .quiz {

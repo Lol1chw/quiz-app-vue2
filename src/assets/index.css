@@ -73,6 +73,10 @@ ol[role='list'] {
     margin-bottom: 20px;
 }
 
+.mb--40 {
+    margin-bottom: 40px;
+}
+
 .text--bold {
     font-weight: 700;
 }
