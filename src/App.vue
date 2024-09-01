@@ -2,14 +2,16 @@
 import { defineComponent, ref } from 'vue'
 import RadioButton from '@/components/RadioButton/RadioButton.vue'
 import Card from '@/components/Card/Card.vue'
+import ProgressBar from '@/components/Progress/ProgressBar.vue'
 import type { Question } from '@/types/question'
 
 export default defineComponent({
-  components: { RadioButton, Card },
+  components: { RadioButton, Card, ProgressBar },
   setup() {
     const selectedAnswers = ref<boolean[]>([])
+    const progress = ref<number>(0)
 
-    return { selectedAnswers }
+    return { selectedAnswers, progress }
   },
   data() {
     const questions: Question[] = [
@@ -30,6 +32,7 @@ export default defineComponent({
   methods: {
     updateSelectedAnswers(isCorrectValue: boolean) {
       this.selectedAnswers.push(isCorrectValue)
+      this.progress++
     },
   },
 })
@@ -38,7 +41,9 @@ export default defineComponent({
 <template>
   <div class="base-layout">
     <div class="quiz">
-      <h1 class="title">Тестирование</h1>
+      <h1 class="title">
+        Тестирование
+      </h1>
       <Card>
         <ul role="list">
           <template v-for="question in questions">
@@ -60,12 +65,14 @@ export default defineComponent({
         </ul>
       </Card>
     </div>
+    <ProgressBar :progress-length="questions.length" :progress="progress"/>
   </div>
 </template>
 
 <style lang="css">
 .base-layout {
   display: grid;
+  grid-template-rows: auto auto;
   place-items: center;
   min-height: 100%;
   padding: 10px;
