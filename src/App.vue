@@ -1,15 +1,15 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import RadioButton from '@/components/RadioButton/RadioButton.vue'
 import Card from '@/components/ui/Card/Card.vue'
 import ProgressBar from '@/components/Progress/ProgressBar.vue'
 import ResultList from '@/components/QuizResult/Result/ResultList.vue'
 import MyButton from '@/components/Button/Button.vue'
+import QuestionsList from '@/components/Quiz/QuestionsList/QuestionsList.vue'
 import quiz from '@/const/quiz.json'
 import type { Answer } from '@/types/question'
 
 export default defineComponent({
-  components: { RadioButton, Card, ProgressBar, ResultList, MyButton },
+  components: { Card, ProgressBar, ResultList, MyButton, QuestionsList },
   setup() {
     const selectedAnswers = ref<Answer[]>([])
     const progress = ref<number>(0)
@@ -96,23 +96,7 @@ export default defineComponent({
       <p v-if="quizMessage.description" class="quiz__description text--2xl">{{ quizMessage.description }}</p>
       <template v-for="(question, questionIndex) in questions">
         <Card v-if="progress === questionIndex" :key="`question-${question.id}`" intent="primary">
-          <ul role="list">
-            <h2 class="mt--0 mb--20">
-              {{ question.text }}
-            </h2>
-            <li
-              v-for="(answer, index) in question.answers"
-              :key="`answer-${answer.id}`"
-              :style="{ marginBottom: index + 1 < question.answers.length ? '20px' : '' }"
-            >
-              <RadioButton
-                :id="`answer-${answer.id}`"
-                :label-text="answer.text"
-                :radio-group-name="`question-${question.id}`"
-                @update:selected="updateSelectedAnswers(answer)"
-              />
-            </li>
-          </ul>
+          <QuestionsList :question="question" @update:selected="updateSelectedAnswers"/>
         </Card>
       </template>
       <ProgressBar v-if="progress < questions.length" :progress-length="questions.length" :progress="progress" />
