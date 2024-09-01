@@ -3,12 +3,13 @@ import { defineComponent, ref } from 'vue'
 import RadioButton from '@/components/RadioButton/RadioButton.vue'
 import Card from '@/components/Card/Card.vue'
 import ProgressBar from '@/components/Progress/ProgressBar.vue'
-import type { Question } from '@/types/question'
+import ResultCard from '@/components/QuizResult/Card/ResultCard.vue'
+import type { Answer, Question } from '@/types/question'
 
 export default defineComponent({
-  components: { RadioButton, Card, ProgressBar },
+  components: { RadioButton, Card, ProgressBar, ResultCard },
   setup() {
-    const selectedAnswers = ref<boolean[]>([])
+    const selectedAnswers = ref<Answer[]>([])
     const progress = ref<number>(0)
 
     return { selectedAnswers, progress }
@@ -25,13 +26,23 @@ export default defineComponent({
           { id: 4, text: 'Нет такого понятия, есть понятие "файловая система"', isCorrect: false },
         ],
       },
+      {
+        id: 2,
+        text: 'Что такое операционная система? question-2',
+        answers: [
+          { id: 5, text: 'Это просто программа на компьютере, как и другие - Word или Chrome', isCorrect: false },
+          { id: 6, text: 'Это показатель того, какой процессор используется на компьютере. Например, 32-битный или 64-битный', isCorrect: false },
+          { id: 7, text: 'Это набор взаимосвязанных программ, осуществляющих управление компьютером и взаимодействие с пользователем', isCorrect: true },
+          { id: 8, text: 'Нет такого понятия, есть понятие "файловая система"', isCorrect: false },
+        ],
+      },
     ]
 
     return { questions }
   },
   methods: {
-    updateSelectedAnswers(isCorrectValue: boolean) {
-      this.selectedAnswers.push(isCorrectValue)
+    updateSelectedAnswers(answer: Answer) {
+      this.selectedAnswers.push(answer)
       this.progress++
     },
   },
@@ -44,10 +55,10 @@ export default defineComponent({
       <h1 class="title">
         Тестирование
       </h1>
-      <Card>
-        <ul role="list">
-          <template v-for="question in questions">
-            <h2 :key="`question-${question.id}`" class="title">
+      <template v-for="question in questions">
+        <Card v-if="progress + 1 === question.id" :key="`question-${question.id}`" intent="primary">
+          <ul role="list">
+            <h2 class="mt--0 mb--20">
               {{ question.text }}
             </h2>
             <li
@@ -58,14 +69,24 @@ export default defineComponent({
               <RadioButton
                 :label-text="answer.text"
                 :radio-group-name="`question-${question.id}`"
-                @update:selected="updateSelectedAnswers(answer.isCorrect)"
+                @update:selected="updateSelectedAnswers(answer)"
               />
             </li>
-          </template>
-        </ul>
-      </Card>
+          </ul>
+        </Card>
+      </template>
     </div>
-    <ProgressBar :progress-length="questions.length" :progress="progress"/>
+    <ProgressBar v-if="progress < questions.length" :progress-length="questions.length" :progress="progress" />
+    <div v-if="selectedAnswers.length === questions.length">
+      <template v-for="(answer, index) in selectedAnswers">
+        <ResultCard
+          :key="`result-${index}-${answer.id}`"
+          :is-correct="answer.isCorrect"
+          :question-text="questions[index].text"
+          :answer-text="answer.text"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -76,10 +97,5 @@ export default defineComponent({
   place-items: center;
   min-height: 100%;
   padding: 10px;
-}
-
-.title {
-  margin-top: 0;
-  margin-bottom: 20px;
 }
 </style>
