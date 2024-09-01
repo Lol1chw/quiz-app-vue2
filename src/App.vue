@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import RadioButton from '@/components/RadioButton/RadioButton.vue'
-import Card from '@/components/Card/Card.vue'
+import Card from '@/components/ui/Card/Card.vue'
 import ProgressBar from '@/components/Progress/ProgressBar.vue'
 import ResultCard from '@/components/QuizResult/Card/ResultCard.vue'
 import type { Answer, Question } from '@/types/question'
