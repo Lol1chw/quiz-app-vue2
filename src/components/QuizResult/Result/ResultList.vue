@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import type { PropType } from 'vue'
 import ResultCard from '../Card/ResultCard.vue'
 import type { Answer, Question } from '@/types/question'
 
@@ -24,7 +23,7 @@ export default defineComponent({
     <li
       v-for="(answer, index) in selectedAnswers"
       :key="`result-${index}-${answer.id}`"
-      :style="{ marginBottom: index !== questions.length && '20px'}"
+      :style="{ marginBottom: index !== questions.length && '20px' }"
     >
       <ResultCard
         :is-correct="answer.isCorrect"

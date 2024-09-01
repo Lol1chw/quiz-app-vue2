@@ -5,12 +5,12 @@ export default defineComponent({})
 </script>
 
 <template>
-  <button :class="$style.button" @click="$emit('click', $event)">
+  <button class="button" @click="$emit('click', $event)">
     <slot />
   </button>
 </template>
 
-<style lang="css" module>
+<style lang="css">
 .button {
     background-color: var(--primary);
     border-radius: var(--rounded-sm);

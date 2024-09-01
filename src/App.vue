@@ -92,11 +92,14 @@ export default defineComponent({
 <template>
   <div class="base-layout">
     <div class="quiz">
-      <h1 class="text--extrabold mb--20 mt--0">{{ quizMessage.title }}</h1>
-      <p v-if="quizMessage.description" class="quiz__description text--2xl">{{ quizMessage.description }}</p>
+      <h1 class="text--extrabold mb--20 mt--0">
+        {{ quizMessage.title }}
+      </h1>
+      <!-- eslint-disable-next-line -->
+      <p v-if="quizMessage.description" class="quiz__description text--2xl">{{quizMessage.description}}</p>
       <template v-for="(question, questionIndex) in questions">
         <Card v-if="progress === questionIndex" :key="`question-${question.id}`" intent="primary">
-          <QuestionsList :question="question" @update:selected="updateSelectedAnswers"/>
+          <QuestionsList :question="question" @update:selected="updateSelectedAnswers" />
         </Card>
       </template>
       <ProgressBar v-if="progress < questions.length" :progress-length="questions.length" :progress="progress" />

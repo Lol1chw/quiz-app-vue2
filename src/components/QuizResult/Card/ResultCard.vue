@@ -17,15 +17,19 @@ export default defineComponent({
       type: String,
       required: true,
     },
-  }
+  },
 })
 </script>
 
 <template>
   <div>
     <Card :intent="isCorrect ? 'success' : 'failed'">
-      <h2 class="mt--0 mb--15 text--xl">{{ questionText }}</h2>
-      <p class="my--15">{{ answerText }}</p>
+      <h2 class="mt--0 mb--15 text--xl">
+        {{ questionText }}
+      </h2>
+      <p class="my--15">
+        {{ answerText }}
+      </p>
     </Card>
   </div>
 </template>
