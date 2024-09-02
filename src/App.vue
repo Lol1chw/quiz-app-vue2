@@ -45,7 +45,7 @@ export default defineComponent({
         }
       }
 
-      if (this.selectedAnswers.every(answer => answer.isCorrect === true)) {
+      if (this.allAnswersCorrect) {
         return {
           title: this.titles.excellent,
           description: this.resultDescriptionMessage.excellent,
@@ -64,7 +64,9 @@ export default defineComponent({
         }
       }
     },
-
+    allAnswersCorrect() {
+      return this.selectedAnswers.every(answer => answer.isCorrect)
+    },
   },
   created() {
     this.shuffleQuestions()
@@ -105,7 +107,7 @@ export default defineComponent({
       <ProgressBar v-if="progress < questions.length" :progress-length="questions.length" :progress="progress" />
     </div>
     <ResultList v-if="selectedAnswers.length === questions.length" :selected-answers="selectedAnswers" :questions="questions" />
-    <MyButton v-if="selectedAnswers.length === questions.length" @click="resetQuiz">
+    <MyButton v-if="selectedAnswers.length === questions.length && !allAnswersCorrect" @click="resetQuiz">
       Пройти еще раз
     </MyButton>
   </div>
